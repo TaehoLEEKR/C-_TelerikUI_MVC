@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title -Reservations Normal Page</title>
+    <link href="https://cdn.kendostatic.com/2022.2.621/styles/kendo.default-ocean-blue.min.css" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Background.css" rel="stylesheet">
+    <script src="https://cdn.kendostatic.com/2022.2.621/js/jquery.min.js"></script>
+    <script src="https://cdn.kendostatic.com/2022.2.621/js/jszip.min.js"></script>
+    <script src="https://cdn.kendostatic.com/2022.2.621/js/kendo.all.min.js"></script>
+    <script src="https://cdn.kendostatic.com/2022.2.621/js/kendo.aspnetmvc.min.js"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+</head>
+<body class="k-content">
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid d-flex justify-content-between p-0">
+            <h1 class="navbar-brand d-flex align-items-center">Sign up</h1>
+            <button id="configure" class="k-rpanel-toggle k-button k-button-md k-rounded-md k-icon-button k-button-solid-primary btn-toggle">
+                <span class="k-button-icon k-icon k-i-menu"></span>
+            </button>
+        </div>
+    </nav>
+
+    <div id="responsive-panel" class="navbar navbar-dark bg-light">
+        @(Html.Kendo().Menu()
+            .Name("Menu")
+            .HtmlAttributes(new { style = "width:100%" })
+            .Items(items =>
+            {
+                items.Add().Text("Login").Action("StartPage", "Start");
+                items.Add().Text("GuestRead").Action("News_Read", "Guest");
+            })
+        )
+    </div>
+
+    <main>
+        <div class="container-fluid">
+            @RenderBody()
+        </div>
+    </main>
+
+    <script>
+        $(document).ready(function () {
+            $("#responsive-panel").kendoResponsivePanel({
+                breakpoint: 768,
+                autoClose: false,
+                orientation: "top"
+            });
+        });
+        function onclick(e) {
+            $("#responsive-panel").getKendoResponsivePanel().toggle();
+        }
+    </script>
+</body>
+</html>s

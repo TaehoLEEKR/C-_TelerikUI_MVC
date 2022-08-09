@@ -1,0 +1,56 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model TelerikMvcApp1.Models.NewsModels
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>알림판 등록</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    @using (Html.BeginForm("Admin_News_Register", "Admin", FormMethod.Post))
+    {
+        <div class="container">
+            <div class="input-form-background row" style="width:100%; margin:auto; left:50%; top:20%;">
+                <div class="input-form col-md-12" style="max-width: 80%">
+                    <h4 class="mn-3">알림판 등록</h4>
+                    <form class="validation-form" novalidate>
+                        <div class="row" style="margin:auto;">
+                            <div class="col-md-6 mb-3">
+                                <label for="Summary">알림 요약</label>
+                                @Html.TextAreaFor(model => model.News_Summary, 10, 90, new { htmlAtrributes = new { @class = "form-control" } })
+                                <div class="invalid-feedback">
+                                    알림 요약
+                                </div>
+                            </div>
+                            <br />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="Content">상세 내용</label>
+                            @Html.TextAreaFor(model => model.News_Content, 10, 90, new { htmlAtrributes = new { @class = "form-control" } })<br />
+                            <div class="invalid-feedback">
+                                알림 요약
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="Period">표시 기한</label>
+                            @Html.TextBoxFor(model => model.News_Period, new { @class = "form-control", Type = "date" })
+                        </div>
+                        @Html.TextBoxFor(model => model.News_RegistTime, new { @class = "form-control", Type = "hidden", @value = DateTime.Now })
+                        @Html.TextBoxFor(model => model.News_Info_Name, new { @class = "form-control", Type = "hidden", @Value = "sa" })
+                        <button class="btn btn-primary btn-lg btn-block" type="submit" style="width:100px">등록</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    }
+</body>
+</html>

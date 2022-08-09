@@ -1,0 +1,54 @@
+﻿@{
+    Layout = "~/Views/Shared/Signup.cshtml";
+}
+@model TelerikMvcApp1.Models.Information
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원탈퇴 </title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="~/Content/Background.css" rel="stylesheet">
+</head>
+<body>
+    @using (Html.BeginForm("DeleteInfo", "UsersView", FormMethod.Post))
+    {
+        <div class="container">
+            <div class="input-form-background row">
+                <div class="input-form col-md-12 mx-auto">
+                    <h4 class="mn-3">회원탈퇴</h4>
+                    <form class="validation-form" novalidate>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="name">이름</label>
+                                @Html.TextBoxFor(m => m.Info_name, new { @class = "form-control", @id = "name", placeholder = "Input your name" })
+                                <div class="invalid-feedback">
+                                    이름을 입력해주세요.
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="nickname">비밀번호</label>
+                                @*<input type="password" class="form-control" id="nickname" placeholder="password" value="" required>*@
+                                @Html.TextBoxFor(m => m.Info_pw, new { @class = "form-control", @id = "pw", placeholder = "password", @Type = "password" })
+                                <div class="invalid-feedback">
+                                    비밀번호를 입력해주세요
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary btn-lg btn-block" type="submit" onclick="MovePage()">가입 완료</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            function MovePage() {
+                alert("OK");
+            }
+        </script>
+    }
+</body>
+</html>

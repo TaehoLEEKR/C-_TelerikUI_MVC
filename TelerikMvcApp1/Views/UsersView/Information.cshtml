@@ -1,0 +1,94 @@
+﻿@{
+    Layout = "~/Views/Shared/Signup.cshtml";
+}
+@model TelerikMvcApp1.Models.Information
+@using TelerikMvcApp1.Models
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="~/Content/Background.css" rel="stylesheet">
+</head>
+<body>
+    @using (Html.BeginForm("Information", "UsersView", FormMethod.Post))
+    {
+    <div class="container">
+        <div class="input-form-backgroud row">
+            <div class="input-form col-md-12 mx-auto">
+                <h4 class="mb-3">회원가입</h4>
+                <form class="validation-form" novalidate>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="Auth"> 권한 </label>
+                            @Html.DropDownListFor(m=> m.Auth, new SelectList(Enum.GetValues(typeof(AuthEnum))),"Select Auth", new { @class = "form-control" })
+                            <div class="invalid-feedback">
+                                권한설정
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="name">이름</label>
+                            @*<input type="text" class="form-control" id="name" placeholder="Input your name" value="" required>*@
+                            @Html.TextBoxFor(m => m.Info_name, new { @class = "form-control", @id = "name", placeholder = "Input your name" })
+                            <div class="invalid-feedback">
+                                이름을 입력해주세요.
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="nickname">비밀번호</label>
+                            @*<input type="password" class="form-control" id="nickname" placeholder="password" value="" required>*@
+                            @Html.TextBoxFor(m => m.Info_pw, new { @class = "form-control", @id = "pw", placeholder = "password", @Type = "password" })
+                            <div class="invalid-feedback">
+                                비밀번호를 입력해주세요
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email">이메일</label>
+                        @*<input type="email" class="form-control" id="email" placeholder="you@example.com" required>*@
+                        @Html.TextBoxFor(m => m.Info_email, new { @class = "form-control", @id = "email", placeholder = "email@email.com" })
+                        <div class="invalid-feedback">
+                            이메일을 입력해주세요.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="address">주소</label>
+                        @*<input type="text" class="form-control" id="address" placeholder="서울특별시 강남구" required>*@
+                        @Html.TextBoxFor(m => m.Info_adr, new { @class = "form-control", @id = "adr", placeholder = "서울특별시 강남구" })
+                        <div class="invalid-feedback">
+                            주소를 입력해주세요.
+                        </div>
+                    </div>
+                     <div class="mb-4"></div>
+                    <div class="form-group col-md-8">
+                        <label for="my_year">생년월일</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                @*<input type="text" class="form-control" name="my_year" id="my_year" maxlength="4" placeholder="년도">*@
+                                @Html.TextBoxFor(m => m.Info_year, new { @class = "form-control", @id = "my_year", @name = "my_year", @maxlength = "4", placeholeder = "년도" })
+                                <span class="input-group-text">년</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-lg btn-block" type="submit" onclick="MovePage()">가입 완료</button>
+                </form>
+            </div>
+        </div>
+        <footer class="my-3 text-center text-small">
+            <p class="mb-1">&copy; @DateTime.Now</p>
+        </footer>
+    </div>
+    }
+    <script type="text/javascript">
+        function MovePage() {
+            alert("ok");
+        }
+    </script>
+</body>
+</html>

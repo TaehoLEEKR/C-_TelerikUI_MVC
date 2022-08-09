@@ -1,0 +1,174 @@
+﻿@model TelerikMvcApp1.Models.Information
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title -Reservations Admin Page</title>
+    <link href="https://cdn.kendostatic.com/2022.2.621/styles/kendo.default-ocean-blue.min.css" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Background.css" rel="stylesheet">
+    <script src="https://cdn.kendostatic.com/2022.2.621/js/jquery.min.js"></script>
+    <script src="https://cdn.kendostatic.com/2022.2.621/js/jszip.min.js"></script>
+    <script src="https://cdn.kendostatic.com/2022.2.621/js/kendo.all.min.js"></script>
+    <script src="https://cdn.kendostatic.com/2022.2.621/js/kendo.aspnetmvc.min.js"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+</head>
+<body class="k-content">
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid d-flex justify-content-between p-0">
+            <h1 class="navbar-brand d-flex align-items-center">Reservation System</h1>
+            <button id="configure" class="k-rpanel-toggle k-button k-button-md k-rounded-md k-icon-button k-button-solid-primary btn-toggle">
+                <span class="k-button-icon k-icon k-i-menu"></span>
+            </button>
+        </div>
+    </nav>
+
+    <div id="responsive-panel" class="navbar navbar-dark bg-light">
+        @(Html.Kendo().Menu()
+            .Name("Menu")
+            .HtmlAttributes(new { style = "width:100%" })
+            .Items(items =>
+            {
+                items.Add().Text("News")
+                .Items(children =>
+                {
+                    children.Add().Text("조회")
+
+                    .HtmlAttributes(new { @class = "LogOff0", name = "LogOff0", id = "LogOff0" });
+                    children.Add().Text("등록")//.Action("Admin_News_Register", "Admin")
+                    .HtmlAttributes(new { @class = "LogOff1", name = "LogOff1", id = "LogOff1" });
+                });
+                //
+                items.Add().Text("Booking")
+                .Items(children =>
+                {
+                    children.Add().Text("조회")//.Action("Admin_Booking_Read", "Admin")
+                    .HtmlAttributes(new { @class = "LogOff2", name = "LogOff2", id = "LogOff2" });
+                    children.Add().Text("예약조회")//.Action("Admin_Booking_Reservation_Read", "Admin")
+                    .HtmlAttributes(new { @class = "LogOff3", name = "LogOff3", id = "LogOff3" });
+                    children.Add().Text("공연등록")//.Action("Admin_Concert_Register", "Admin")
+                    .HtmlAttributes(new { @class = "LogOff4", name = "LogOff4", id = "LogOff4" });
+                });
+                //
+                items.Add().Text("siteLink")
+                 .Items(children =>
+                 {
+                     children.Add().Text("리스트")
+                     .HtmlAttributes(new { @class = "Listing0", name = "Listing0", id = "Listing0" });
+                     children.Add().Text("리스트 등록")
+                     .HtmlAttributes(new { @class = "Listing1", name = "Listing1", id = "Listing1" });
+                 });
+                //
+                items.Add().Text("UserInformations")
+                 .Items(children =>
+                 {
+                     children.Add().Text("조회 정보/ 등록")//.Action("Information", "UsersView")
+                     .HtmlAttributes(new { @class = "LogOff5", name = "LogOff5", id = "LogOff5" });
+                     children.Add().Text("삭제")//.Action("DeleteInfo", "UsersView")
+                     .HtmlAttributes(new { @class = "LogOff6", name = "LogOff6", id = "LogOff6" });
+                 });
+            })
+        )
+    </div>
+    <main>
+        <div class="grouping" style="display:flex;">
+            <div class="side-bar" style="width: 15%; height:100vh; border:solid;">
+                @using (Html.BeginForm("StartPage", "Start", FormMethod.Post))
+                {
+                    @Html.TextBoxFor(m => m.Info_name, new { @class = "form-control", @id = "name", placeholder = "Input your name", style = "margin-top:10px; margin-left:10px; margin-right:10px; width:90%;" })
+                    <br />
+                    @Html.TextBoxFor(m => m.Info_pw, new { @class = "form-control", @id = "pw", placeholder = "Input your pw",type="password" ,style = "margin-left:10px; margin-right:10px; width:90%;" })
+                    <button class="submit" style="width:100px; border:solid; margin-top:10px; margin-left:130px; border-radius: 20px;"><strong>Login</strong></button>
+                }
+                    <button class="button" style="width:100px; border:groove; margin-top:10px; margin-left:130px; border-radius: 20px;" onclick="location.href='http://localhost:64820/UsersView/Information'"><strong>Sign up</strong></button>
+            </div>
+            <div class="container-fluid">
+                @RenderBody()
+            </div>
+        </div>
+    </main>
+
+    <script>
+        $(document).ready(function () {
+            $("#responsive-panel").kendoResponsivePanel({
+                breakpoint: 768,
+                autoClose: false,
+                orientation: "top"
+            });
+        });
+        function onclick(e) {
+            $("#responsive-panel").getKendoResponsivePanel().toggle();
+        }
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            for (var i = 0; i < 7; i++) {
+                $('#LogOff'+i).click(function () {
+                    alert("로그인 해주세요");
+                })
+            }
+        });
+        for (var i = 0; i < 2; i++) {
+            $('#Listing' + i).click(function () {
+                alert("구현중입니다.");
+            })
+        }
+
+    </script>
+
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+<style>
+    #root {
+        max-width: 768px;
+        min-width: 360px;
+        margin: 0 auto;
+        min-height: 100vh;
+        background-color: rgb(255,255,255);
+        box-sizing: border-box
+    }
+
+    body,
+    h1, h2, h3, h4, h5, h6, p,
+    ul, li, ol {
+        margin: 0;
+        padding: 0;
+    }
+
+
+    a {
+        text-decoration: none;
+    }
+
+    li {
+        list-style: none;
+    }
+
+    button,
+    input,
+    form,
+    fieldset {
+        margin: 0;
+        padding: 0;
+        background: none;
+        border: 0;
+        border-radius: none;
+    }
+</style>

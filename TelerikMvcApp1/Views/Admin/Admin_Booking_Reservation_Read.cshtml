@@ -1,0 +1,110 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    ViewBag.Title = "Home Page";
+}
+<br />
+<div class="row">
+    <div class="col-12">
+        @(Html.Kendo().Grid<TelerikMvcApp1.Models.details>()
+        .Name("Reservation")
+        .ToolBar(t => t.Search())
+        .Columns(columns =>
+        {
+            columns.Bound(p => p.Reservation_Concert_Num).Hidden();
+            columns.Bound(p => p.공연일자).Format("{0:yyyy/MM/dd}");
+            columns.Bound(p => p.아티스트);
+            columns.Bound(p => p.장소);
+            columns.Bound(p => p.좌석수);
+            columns.Bound(p => p.예약완료);
+            columns.Command(command => command.Custom("details").Click("DetailsAjax")).Width(150);
+        })
+        .Pageable()
+        .Sortable()
+        .Search(s =>
+        {
+            s.Field(o => o.Reservation_Concert_Num, "eq");
+            s.Field(o => o.아티스트, "gt");
+            s.Field(o => o.좌석수, "contains");
+            s.Field(o => o.예약완료, "contains");
+        })
+        .Filterable()
+        .HtmlAttributes(new { Style = "height:800px;" })
+        .DataSource(dataSource => dataSource
+            .Ajax()
+            .PageSize(20)
+            .Read(read => read.Action("Admin_Booking_Reservation_Read", "Admin"))
+        )
+        )
+                )
+        @(Html.Kendo().Window().Name("DetailsAjax")
+            .Title("상세 내용")
+            .Visible(false)
+            .Modal(true)
+            .Draggable(true)
+            .Width(500)
+        )
+
+
+        @*<script type="text/x-kendo-template" id="template">
+            <div id="details-container">
+                <h2>#= 아티스트 #</h2>
+                <em>삭제</em>
+                <dl>
+                    <dt>공연날짜: #= 공연일자 #</dt>
+                </dl>
+            </div>
+        </script>
+
+
+        <script type="text/javascript">
+        var detailsTemplate;
+
+        $(document).ready( function () {
+        detailsTemplate = kendo.template($("#template").html());
+        });
+
+        </script>*@
+
+
+
+        <script type="text/javascript">
+            function DetailsAjax(e) {
+                e.preventDefault();
+                var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+                console.log(dataItem.Reservation_Concert_Num);
+                $.ajax({
+                    url: './Admin_Details',
+                    type: 'POST',
+                    data: {
+                        'Reservation_Concert_Num': dataItem.Reservation_Concert_Num
+                    },
+                    success: function (data) {
+                            //var wnd = $("#DetailsAjax").data("kendoWindow");
+                            //    wnd.content(detailsTemplate(dataItem));
+                            //    wnd.center().open();
+                        console.log(data);
+                        //if (confirm("상세확인")) {
+
+                        window.location.href = "http://localhost:64820/Admin/Admin_Details"
+                        //}
+                    },
+                    error: function (xhr) {
+                        alert(xhr);
+                    }
+                });
+            }
+        </script>
+
+        <script>
+            function parameterMap(options, operation) {
+                if (operation !== "read" && options.models) {
+                    return { models: kendo.stringify(options.models) };
+                }
+            }
+        </script>
+    </div>
+
+</div>

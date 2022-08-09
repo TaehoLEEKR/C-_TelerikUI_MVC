@@ -1,0 +1,52 @@
+﻿@{
+    Layout = "~/Views/Shared/_Guest.cshtml";
+}
+<br />
+<div class="row">
+    <div class="col-12">
+        @(Html.Kendo().Grid<TelerikMvcApp1.Models.Concert>()
+        .Name("Guest_Booking")
+        .Columns(columns =>
+        {
+            columns.Bound(p => p.Concert_Num).Hidden();
+            columns.Bound(p => p.Concert_Period).Format("{0:yyyy/MM/dd}");
+            columns.Bound(p => p.Concert_Artist);
+            columns.Bound(p => p.Concert_location);
+            columns.Bound(p => p.Concert_Content);
+            columns.Bound(p => p.Concert_Link).ClientTemplate("<a href='#=Concert_Link#'>#=Concert_Link#").Width(150);
+            //columns.Command(command => command.Custom("Reservation").Click("resAjax")).Width(150);
+            //버튼
+
+        })
+        .Pageable()
+        .Sortable()
+        .Filterable()
+        .HtmlAttributes(new { Style = "height:550px;" })
+        .DataSource(dataSource => dataSource
+            .Ajax()
+            .PageSize(20)
+            .Read(read => read.Action("Booking_Read", "Guest"))
+        )
+        )
+        <script>
+            function resAjax(e) {
+                e.preventDefault();
+                var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+                alert(dataItem.Concert_Num);
+                $.ajax({
+                    url: './Booking_reservation_Post',
+                    type:'POST',
+                    data: {
+                        'Concert_Num': dataItem.Concert_Num
+                    },
+                    success: function (data) {
+                        window.location.href = "http://localhost:64820/Guest/Booking_reservation"
+                    },
+                    error: function (xhr) {
+                        alert(xhr);
+                    }
+                });
+            }
+        </script>
+    </div>
+</div>

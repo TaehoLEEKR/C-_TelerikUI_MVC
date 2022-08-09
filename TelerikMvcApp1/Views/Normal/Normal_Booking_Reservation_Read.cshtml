@@ -1,0 +1,44 @@
+﻿@{
+    Layout = "~/Views/Shared/_Normal.cshtml";
+}
+
+@{
+    ViewBag.Title = "Home Page";
+}
+<br />
+<div class="row">
+    <div class="col-12">
+        @(Html.Kendo().Grid<TelerikMvcApp1.Models.details>()
+        .Name("Reservation")
+        .Columns(columns =>
+        {
+            columns.Bound(p => p.Reservation_Concert_Num).Hidden();
+            columns.Bound(p => p.공연일자).Format("{0:yyyy/MM/dd}");
+            columns.Bound(p => p.아티스트);
+            columns.Bound(p => p.장소);
+            columns.Bound(p => p.좌석수);
+            columns.Bound(p => p.예약완료);
+            //columns.Command(command => command.Custom("details").Click("DetailsAjax")).Width(150);
+        })
+        .Pageable()
+        .Sortable()
+        .Filterable()
+        .HtmlAttributes(new { Style = "height:800px;" })
+        .DataSource(dataSource => dataSource
+            .Ajax()
+            .PageSize(20)
+            .Read(read => read.Action("Normal_Booking_Reservation_Read", "Normal"))
+        )
+        )
+                )
+
+        <script>
+            function parameterMap(options, operation) {
+                if (operation !== "read" && options.models) {
+                    return { models: kendo.stringify(options.models) };
+                }
+            }
+        </script>
+    </div>
+
+</div>

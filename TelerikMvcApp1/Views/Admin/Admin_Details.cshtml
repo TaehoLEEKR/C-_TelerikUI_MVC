@@ -1,0 +1,35 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<br />
+<div class="row">
+    <div class="col-12">
+        @(Html.Kendo().Grid<TelerikMvcApp1.Models.Details_ID>()
+        .Name("Reservation")
+        .Columns(columns =>
+        {
+            columns.Bound(p => p.ID);
+            columns.Bound(p => p.Concert_Content).Format("{0:yyyy/MM/dd}");
+            columns.Bound(p => p.아티스트);
+            columns.Bound(p => p.예약날짜).Format("{0:yyyy/MM/dd}");
+            columns.Bound(p => p.예약좌석수);
+            columns.Bound(p => p.표시기한).Format("{0:yyyy/MM/dd}");
+            columns.Bound(p => p.MONTH);
+            columns.Bound(p => p.장소);
+            columns.Bound(p => p.공연일자).Format("{0:yyyy/MM/dd}");
+            //columns.Command(command => command.Custom("details").Click("DetailsAjax")).Width(150);
+        })
+        .Pageable()
+        .Sortable()
+        .Filterable()
+        .HtmlAttributes(new { Style = "height:800px;" })
+        .DataSource(dataSource => dataSource
+            .Ajax()
+            .PageSize(20)
+            .Read(read => read.Action("Admin_Details", "Admin"))
+        )
+        )
+</div>
+</div>

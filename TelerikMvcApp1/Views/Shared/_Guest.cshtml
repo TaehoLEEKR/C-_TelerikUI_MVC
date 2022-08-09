@@ -1,0 +1,98 @@
+﻿
+@{
+    ViewBag.Title = "_Guest";
+}
+@{
+    TempData.Keep();
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title -Reservations Guest Page</title>
+    <link href="https://cdn.kendostatic.com/2022.2.621/styles/kendo.default-ocean-blue.min.css" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Background.css" rel="stylesheet">
+    <script src="https://cdn.kendostatic.com/2022.2.621/js/jquery.min.js"></script>
+    <script src="https://cdn.kendostatic.com/2022.2.621/js/jszip.min.js"></script>
+    <script src="https://cdn.kendostatic.com/2022.2.621/js/kendo.all.min.js"></script>
+    <script src="https://cdn.kendostatic.com/2022.2.621/js/kendo.aspnetmvc.min.js"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+</head>
+
+<body class="k-content">
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid d-flex justify-content-between p-0">
+            <h1 class="navbar-brand d-flex align-items-center">Guest System</h1>
+            <button id="configure" class="k-rpanel-toggle k-button k-button-md k-rounded-md k-icon-button k-button-solid-primary btn-toggle">
+                <span class="k-button-icon k-icon k-i-menu"></span>
+            </button>
+        </div>
+    </nav>
+
+    <div id="responsive-panel" class="navbar navbar-dark bg-light">
+        @(Html.Kendo().Menu()
+            .Name("Menu")
+            .HtmlAttributes(new { style = "width:100%" })
+            .Items(items =>
+            {
+                items.Add().Text("News")
+                .Items(children =>
+                {
+                    children.Add().Text("조회").Action("News_Read", "Guest")
+                    .HtmlAttributes(new { @class = "ReadNews" });
+
+                });
+                //
+                items.Add().Text("Booking")
+                .Items(children =>
+                {
+                    children.Add().Text("조회").Action("Booking_Read", "Guest")
+                    .HtmlAttributes(new { @class = "ReadBook" });
+                    //children.Add().Text("예약조회").Action("Booking_Reservation", "Guest")
+                    //.HtmlAttributes(new { @class = "Reservation_Read" });
+                });
+                items.Add().Text("UserInformations")
+                 .Items(children =>
+                 {
+                     children.Add().Text("조회 정보/ 등록").Action("Information", "UsersView")
+                     .HtmlAttributes(new { @class = "Information" });
+                     children.Add().Text("삭제").Action("DeleteInfo", "UsersView")
+                     .HtmlAttributes(new { @class = "DeleteInfo" });
+                 });
+                //items.Add().Text("Disabled item").Enabled(false);
+            })
+        )
+    </div>
+
+    <main>
+        <div class="grouping" style="display:flex;">
+            <div class="side-bar" style="width: 15%; height:100vh; border:solid;">
+                <h3>Welcome @TempData["ID"]</h3>
+                <hr />
+                <h3>권한 : @TempData["Auth"]</h3>
+                <hr />
+                <button class="button" style="width:100px; border:groove; margin-top:10px; margin-left:130px; border-radius: 20px;" onclick="location.href='http://localhost:64820/'"><strong>Logout</strong></button>
+            </div>
+            <div class="container-fluid">
+                @RenderBody()
+            </div>
+        </div>
+    </main>
+
+    <script>
+        $(document).ready(function () {
+            $("#responsive-panel").kendoResponsivePanel({
+                breakpoint: 768,
+                autoClose: false,
+                orientation: "top"
+            });
+        });
+        function onclick(e) {
+            $("#responsive-panel").getKendoResponsivePanel().toggle();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+﻿@{
+    Layout = "~/Views/Shared/_Normal.cshtml";
+}
+
+@{
+    ViewBag.Title = "Normal";
+}
+
+<br />
+<div class="row">
+    <div class="col-12">
+        @(Html.Kendo().Grid<TelerikMvcApp1.Models.NewsModels>()
+        .Name("News_Read")
+        .Columns(columns =>
+        {
+            columns.Bound(p => p.News_Num);
+            columns.Bound(p => p.News_RegistTime).Format("{0:yyyy/MM/dd}");
+            columns.Bound(p => p.News_Info_Name);
+            columns.Bound(p => p.News_Summary);
+            columns.Bound(p => p.News_Content);
+            columns.Bound(p => p.News_Period).Format("{0:yyyy/MM/dd}");
+            //columns.Command(command => command.Custom("remove").Click("DestroyAjax")).Width(150);
+        })
+        .Pageable()
+        .Sortable()
+        .Filterable()
+        .HtmlAttributes(new { Style = "height:800px;" })
+        .DataSource(dataSource => dataSource
+            .Ajax()
+            .PageSize(20)
+            .Read(read => read.Action("Normal_News_Read", "Normal"))
+        )
+        )
+        <script>
+            function parameterMap(options, operation) {
+                if (operation !== "read" && options.models) {
+                    return { models: kendo.stringify(options.models) };
+                }
+            }
+        </script>
+    </div>
+
+</div>
+<style type="text/css">
+    #details-container {
+        padding: 10px;
+    }
+
+        #details-container h2 {
+            margin: 0;
+        }
+
+        #details-container em {
+            color: #8c8c8c;
+        }
+
+        #details-container dt {
+            margin: 0;
+            display: inline;
+        }
+</style>

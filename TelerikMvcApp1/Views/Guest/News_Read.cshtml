@@ -1,0 +1,123 @@
+﻿@{
+    Layout = "~/Views/Shared/_Guest.cshtml";
+}
+@{
+    ViewBag.Title = "Guest";
+}
+
+<br />
+<div class="row">
+    <div class="col-12">
+        @(Html.Kendo().Grid<TelerikMvcApp1.Models.NewsModels>()
+        .Name("News_Read")
+        .Columns(columns =>
+        {
+            columns.Bound(p => p.News_Num);
+            columns.Bound(p => p.News_RegistTime).Format("{0:yyyy/MM/dd}");
+            columns.Bound(p => p.News_Info_Name);
+            columns.Bound(p => p.News_Summary);
+            columns.Bound(p => p.News_Content);
+            columns.Bound(p => p.News_Period).Format("{0:yyyy/MM/dd}");
+            //columns.Command(command => command.Custom("remove").Click("DestroyAjax")).Width(150);
+        })
+        .Pageable()
+        .Sortable()
+        .Filterable()
+        .HtmlAttributes(new { Style = "height:800px;" })
+        .DataSource(dataSource => dataSource
+            .Ajax()
+            .PageSize(20)
+            .Read(read => read.Action("News_Read", "Guest"))
+        )
+        )
+        @(Html.Kendo().Window().Name("DestroyAjax")
+            .Title("삭제")
+            .Visible(false)
+            .Modal(true)
+            .Draggable(true)
+            .Width(300)
+        )
+
+
+        <script type="text/x-kendo-template" id="template">
+            <div id="details-container">
+                <h2>#= News_Info_Name # #= News_Num #</h2>
+                <em>삭제</em>
+                <dl>
+                    <dt>등록날짜: #= News_RegistTime #</dt>
+                    <dt>표시 기한: #= News_Period #</dt>
+                </dl>
+            </div>
+        </script>
+
+
+        <script type="text/javascript">
+        var detailsTemplate;
+
+        $(document).ready( function () {
+        detailsTemplate = kendo.template($("#template").html());
+        });
+
+        </script>
+
+
+
+        <script type="text/javascript">
+            function DestroyAjax(e) {
+                e.preventDefault();
+                var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+                //console.log(dataItem.News_Num);
+                //alert(dataItem.News_Num);
+                $.ajax({
+                    url: './News_Read_Delete',
+                    type: 'POST',
+                    data: {
+                        'News_Num': dataItem.News_Num
+                    },
+                    success: function (data) {
+                        //console.log(data);
+                        //console.log(data.News_Num);
+                            var wnd = $("#DestroyAjax").data("kendoWindow");
+                                wnd.content(detailsTemplate(dataItem));
+                                wnd.center().open();
+
+                        if (confirm("삭제하시겠습니까?.")) {
+
+                            window.location.href = "http://localhost:64820/Guest/News_Read"
+                        }
+                    },
+                    error: function (xhr) {
+                        alert(xhr);
+                    }
+                });
+            }
+        </script>
+
+        <script>
+            function parameterMap(options, operation) {
+                if (operation !== "read" && options.models) {
+                    return { models: kendo.stringify(options.models) };
+                }
+            }
+        </script>
+    </div>
+
+</div>
+<style type="text/css">
+    #details-container {
+        padding: 10px;
+    }
+
+        #details-container h2 {
+            margin: 0;
+        }
+
+        #details-container em {
+            color: #8c8c8c;
+        }
+
+        #details-container dt {
+            margin: 0;
+            display: inline;
+        }
+</style>

@@ -1,0 +1,123 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model TelerikMvcApp1.Models.Concert
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공연 등록</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+    <script>
+        function getData() {
+            var Concert_Content = $('#Concert_Content').val();
+            var Clocation = $('#Clocation').val();
+            var Artist = $('#artist').val();
+            var startdate = $('#startdata').val();
+            var enddate = $('#enddata').val();
+            var adlink = $('#adlink').val();
+            var seatallow = $('#seatallow').val();
+            var cperiod = $('#Cperiod').val();
+            //var img = $('#hiddenImage').val();
+            $.ajax({
+                url: '/Admin/Admin_Concert_Register',
+                type: 'POST',
+                data: {
+                    'Concert_Content': Concert_Content,
+                    'Concert_Artist': Artist,
+                    'Concert_location': Clocation,
+                    'Concert_Start_Date': startdate,
+                    'Concert_End_Date': enddate,
+                    'Concert_Link': adlink,
+                    'Max_Seat': seatallow,
+                    'Concert_Period': cperiod
+                },
+                success: function (data) {
+                    console.log(data);
+                    if (confirm("등록하시겠습니까?")) {
+                        window.location.href = "http://localhost:64820/Admin/Admin_Booking_Read"
+                    }
+                },
+                error: function (xhr) {
+                    alert(xhr);
+                }
+            });
+        }
+    </script>
+
+
+
+
+</head>
+
+
+
+<div class="row" style="display:flex">
+        <table class="Concert_Register" , style="width:100px; height:10px;
+position:absolute; left:55%; top:55%; transform:translate(-50%,-50%);
+background-color:lightblue; border-radius:20px" ;
+               cellpadding="10"; margin-top:10px;>
+            <thead>
+                <!-- IMG , 공연내용-->
+                <tr>
+                    <th> 공연 등록</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <!-- 공연 장소-->
+
+                    <td>
+                        <!-- IMG -->
+                        <label for="concertContent">&nbsp;공연 내용</label>
+                        @Html.TextAreaFor(model => model.Concert_Content, 10, 200, new { htmlAtrributes = new { @class = "form-control", @id = "Concert_Content" ,style= "border : groove ; border-radius: 20px;" } })<br />
+                        <input type="hidden" id="hiddenImage" value="/Content/img/img2.jpg" />
+                        <label for="concertLocation">&nbsp;공연 장소&nbsp;</label>
+                        @Html.TextBoxFor(model => model.Concert_location, new { @class = "input-field", id = "Clocation",style = "border : groove  ; border-radius: 10px;" })
+                        <br /><br /><br /><hr />
+                        <label for="StartDate">&nbsp;시작 날짜&nbsp;</label>
+                        @Html.TextBoxFor(model => model.Concert_Start_Date, new { @class = "table-boarder", Type = "date", id = "startdata", style = "border : groove ; border-radius: 10px;" })
+                        &nbsp; &nbsp; &nbsp; &nbsp;
+                        <label for="EndDate">&nbsp;마지막 날짜&nbsp;</label>
+                        @Html.TextBoxFor(model => model.Concert_End_Date, new { @class = "table-boarder", Type = "date", id = "enddata", style = "border : groove ; border-radius: 10px;" })
+                        <br /><br /><br /><hr />
+                        <label for="ADlink">&nbsp;홍보사이트&nbsp;</label>
+                        @Html.TextBoxFor(model => model.Concert_Link, new { @class = "input-field", placeholder = "Add Link", id = "adlink", style = "border : groove ; border-radius: 10px;" })
+
+                    </td>
+                </tr>
+                <tr>
+                    <!--허용좌석-->
+                    <td>
+                        <label for="allowSeat">&nbsp;허용좌석&nbsp;</label>
+                        @Html.TextBoxFor(model => model.Max_Seat, new { id = "seatallow", style = "border : groove ; border-radius: 10px;" }) 개
+                    </td>
+                </tr>
+                <tr>
+                    <!--표시기한--> <!--Artist-->
+                    <td>
+                        <label for="Cperiod">&nbsp;표시기한&nbsp;</label>
+                        @Html.TextBoxFor(model => model.Concert_Period, new { @class = "table-boarder", Type = "date", id = "Cperiod", style = "border : groove ; border-radius: 10px;" })
+                        &nbsp; &nbsp; &nbsp; &nbsp;
+                        <label for="ArtistName">&nbsp;Artist Name</label>
+                        @Html.TextBoxFor(model => model.Concert_Artist, new { @class = "table-boarder", Type = "text", id = "artist", style = "border : groove ; border-radius: 10px;" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="button" value="등록하기" onclick="getData()" style = "border : groove ; border-radius: 5px;" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</div>
+        </body>
+</html>
+

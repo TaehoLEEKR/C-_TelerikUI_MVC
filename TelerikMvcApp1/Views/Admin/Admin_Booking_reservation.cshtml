@@ -1,0 +1,127 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model System.Data.DataSet
+@using System.Data
+
+<!DOCTYPE html>
+
+
+<html lang="ko">
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>예약</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script>
+
+        function BookData() {
+            var Booking = $("#booking").val();
+            var Tname = $("#hiddenArtist").val();   
+            var Pk_num = $("#Pk_Concert_Num").val();
+            var Seatings = $("#Seatings").val();
+            $.ajax({
+                url: '/Admin/reservation_Insert',
+                type: 'POST',
+                data: {
+                    'Reservation_Concert_Num': Pk_num,
+                    'Reservation_Concert_Artist': Tname,
+                    'Reservation_Date': Booking,
+                    'Reservation_Seat' : Seatings
+                },
+                success: function (data) {
+                    console.log(data);
+                    if (confirm("예약되었습니다.")) {
+                        window.location.href = "http://localhost:64820/Start/AdminView"
+                    }
+
+                },
+                error: function (xhr) {
+                    alert(xhr);
+                }
+            });
+        }
+    </script>
+
+</head>
+
+
+
+
+<table class="Concert_Register" , style="width:100px; height:5px;
+position:absolute; left:50%; top:56%; transform:translate(-50%,-50%);
+background-color:lightblue; border-radius:20px";
+       cellpadding="10" ; margin-top:10px; display:flex;>
+    <thead>
+        <tr>
+            <th> 예약 </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(DataRow row in Model.Tables["[daeho].[dbo].[TConcert]"].Rows)
+        {
+            <input type="hidden" id="Pk_Concert_Num" value="@row["Concert_Num"]"/>
+            <input type="hidden" id="hiddenArtist" value="@row["Concert_Artist"]" />
+            <td>
+                <label for="ReservationContent">&nbsp; 예약 내용</label>
+                <textarea class="form-control" id="Tcontent" name="Tcontent" rows="10", cols="100" value="@row["Concert_Content"]" readonly> @row["Concert_Content"] </textarea>
+                <center><label for="Tlocation">예약 장소</label></center>
+                <center><div id="Tlocation" value="@row["Concert_location"]" style="height:114px;width:1000px; background-color:#eeeeee; border: 1px solid; text-align: center; padding:50px 0;">@row["Concert_location"]</div></center><br />
+
+                <center><label for="BookingDate">공연 날짜</label></center>
+                <center><div id="BookingDate" value="@row["Concert_Start_Date"]" style="height:114px;width:1000px; background-color:#eeeeee; border: 1px solid; text-align: center; padding:50px 0;">@row["Concert_Start_Date"]</div></center><br />
+
+                <center>
+                    <div id="Booking" style="height:114px;width:1000px; background-color:#eeeeee; border: 1px solid; text-align: center; padding:50px 0;">
+
+                        <strong>예약날짜 : &nbsp;</strong><input type="date" id="booking" class="datetime" name="booking" />
+                    </div>
+                </center>
+                <br />
+                <label for="Seatings">예약 좌석수</label>
+                <select name="Seatings" id="Seatings" class="custom-select">
+                    <option value="1">
+                        1
+                    </option>
+                    <option value="2">
+                        2
+                    </option>
+                    <option value="3">
+                        3
+                    </option>
+                    <option value="4">
+                        4
+                    </option>
+                    <option value="5">
+                        5
+                    </option>
+                    <option value="6">
+                        6
+                    </option>
+                    <option value="7">
+                        7
+                    </option>
+                    <option value="8">
+                        8
+                    </option>
+                    <option value="9">
+                        9
+                    </option>
+                    <option value="10">
+                        10
+                    </option>
+                </select>
+                <br />
+                <input type="button" value="예약하기" style="margin-left:72.5%;" onclick="BookData()" />
+
+            </td>
+        }
+    </tbody>
+</table>
+</html>
