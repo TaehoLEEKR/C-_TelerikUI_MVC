@@ -10,7 +10,14 @@ TelerikUI 를 입힌 MVC 패턴의 예약 웹사이트
   - <img src="https://img.shields.io/badge/jquery-0769AD?style=for-the-badge&logo=jquery&logoColor=white"> &nbsp; <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> &nbsp; 
   <img src="https://img.shields.io/badge/.NET-512BD4?style=for-the-badge&logo=.NET&logoColor=white"> &nbsp; <img src="https://img.shields.io/badge/Microsoft SQL Server-CC2927?style=for-the-badge&logo=MicrosoftSQLServer&logoColor=white">&nbsp;<img src="https://img.shields.io/badge/bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white">
 
-  <br> 
+  <br>
+* ## **Content** &nbsp;
+<br>
+<!-- BUllet list -->
+    - Mssql 과 Telerik UI MVC 를 사용하여 간단한 예약 프로그램 구성
+    - 기능 적인 부분은 서로 비슷함 
+    - 가능한 데이터 관련 CRUD 를 직접 구현 sql문으로 구현
+    - Telerik Kendo UI 사용
   
 ---
 ## 첫 페이지 
