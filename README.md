@@ -14,9 +14,9 @@ TelerikUI 를 입힌 MVC 패턴의 예약 웹사이트
 * ## **Content** &nbsp;
 <br>
 <!-- BUllet list -->
-    - Mssql 과 Telerik UI MVC 를 사용하여 간단한 예약 프로그램 구성
-    - 기능 적인 부분은 서로 비슷함 
-    - 가능한 데이터 관련 CRUD 를 직접 구현 sql문으로 구현
+    - Mssql 과 Telerik UI MVC 를 사용하여 간단한 예약 프로그램 구성 <br>
+    - 기능 적인 부분은 서로 비슷함 <br>
+    - 가능한 데이터 관련 CRUD 를 직접 구현 sql문으로 구현 <br>
     - Telerik Kendo UI 사용
   
 ---
