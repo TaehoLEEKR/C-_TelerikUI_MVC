@@ -22,3 +22,7 @@ TelerikUI 를 입힌 MVC 패턴의 예약 웹사이트
 ![image](https://user-images.githubusercontent.com/80689135/184046136-f51bafc3-8bc5-43ee-b6ec-11dc271f51ff.png)
 ## 등록 ![image](https://user-images.githubusercontent.com/80689135/184046240-a8e166fb-7e63-45d1-b510-065d9a4fbcaf.png)
 
+---
+## Booking 조회 / 등록 
+![image](https://user-images.githubusercontent.com/80689135/184048312-3711ad5c-73bd-4888-a49a-14cc6af25d0c.png)
+![image](https://user-images.githubusercontent.com/80689135/184048337-2024acd9-df3e-47bc-bce7-c838b2847c5e.png)
