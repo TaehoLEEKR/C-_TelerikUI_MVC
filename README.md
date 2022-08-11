@@ -8,8 +8,8 @@ TelerikUI 를 입힌 MVC 패턴의 예약 웹사이트
     <!-- BUllet list -->
 
   - <img src="https://img.shields.io/badge/jquery-0769AD?style=for-the-badge&logo=jquery&logoColor=white"> &nbsp; <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> &nbsp; 
-  <img src="https://img.shields.io/badge/.NET-512BD4?style=for-the-badge&logo=.NET&logoColor=white"> &nbsp; <img src="https://img.shields.io/badge/Microsoft SQL Server-CC2927?style=for-the-badge&logo=MicrosoftSQLServer&logoColor=white">
-  <img src="https://img.shields.io/badge/Telerik-UI-MVC-512BD4?style=for-the-badge&logo=Telerik-UI-MVC&logoColor=white"> &nbsp; 
+  <img src="https://img.shields.io/badge/.NET-512BD4?style=for-the-badge&logo=.NET&logoColor=white"> &nbsp; <img src="https://img.shields.io/badge/Microsoft SQL Server-CC2927?style=for-the-badge&logo=MicrosoftSQLServer&logoColor=white">&nbsp;<img src="https://img.shields.io/badge/bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white">
+
   <br> 
   
 ---
