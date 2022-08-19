@@ -1,3 +1,4 @@
 
 master/packages/* linguist-vendored
 master/lib/KENDOUIMVC/2022.2.621.545.Trial/* linguist-vendored
+master/.vs/* linguist-vendored
